@@ -24,7 +24,10 @@ typedef struct stack *STACKPTR;
 void insert(LINKEDPTR head, int value) {
     LINKEDPTR q;
     if(head == NULL) {
-        exit(1);
+        head = (LINKEDPTR) malloc(sizeof(struct linked));
+        head->info = value;
+        head->next = NULL;
+        return;
     }
     q = (LINKEDPTR) malloc(sizeof(struct linked));
     q->info = value;
@@ -46,7 +49,7 @@ void insert(LINKEDPTR head, int value) {
 
 void stack_to_linked(STACKPTR stack, LINKEDPTR list) {
     
-    for(int i = 0; i < STACKSIZE; i++)
+    for(int i = 0; i < stack->top; i++)
     {
         insert(list, stack->info[i]);
     }

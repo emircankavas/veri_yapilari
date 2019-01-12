@@ -1,7 +1,7 @@
 //
 //
 //  Yığıttan tek bağlı listeye aktar
-//  Düzeltme için Fatih'e teşekkürler
+//  Düzeltme için Fatih Cesur'a teşekkürler
 //
 
 #include <stdio.h>

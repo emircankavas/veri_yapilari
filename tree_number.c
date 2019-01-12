@@ -1,7 +1,7 @@
 //
 //
 //  Ağaçtaki eleman sayısı
-//
+//  Düzeltme için Esracan Güngör'e teşekkürler
 //
 
 #include <stdio.h>
@@ -14,10 +14,12 @@ struct tree {
 };
 typedef struct tree *TREEPTR;
 
-void tree_number(TREEPTR root, int &number) {
-    if(root !== NULL) {
-        tree_number(root->left);
-        tree_number(root->right);
-        number ++;
+int tree_number(root) {
+    if(root == NULL) {
+        return 0;
     }
+    if(root->left == NULL && root->right == NULL) {
+        return 1;
+    }
+    return tree_number(root_left) + tree_number(root_right);
 }

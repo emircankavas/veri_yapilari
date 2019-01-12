@@ -14,7 +14,7 @@ struct tree {
 };
 typedef struct tree *TREEPTR;
 
-int tree_number(root) {
+int tree_number(TREEPTR root) {
     if(root == NULL) {
         return 0;
     }

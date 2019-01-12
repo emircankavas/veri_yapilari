@@ -1,7 +1,7 @@
 //
 //
 //  Yığıttan tek bağlı listeye aktar
-//
+//  Düzeltme için Fatih'e teşekkürler
 //
 
 #include <stdio.h>
@@ -21,15 +21,27 @@ struct stack {
 };
 typedef struct stack *STACKPTR;
 
-void insert(LINKEDPTR list, int value) {
+void insert(LINKEDPTR head, int value) {
     LINKEDPTR q;
-    if(list == NULL) {
+    if(head == NULL) {
         exit(1);
     }
     q = (LINKEDPTR) malloc(sizeof(struct linked));
     q->info = value;
-    q->next = list->next;
-    list->next = q;
+    q->next = NULL;
+    if(head->next == NULL) {
+        head->next = q;
+    }
+    else {
+        LINKEDPTR current = head;
+        while(1) {
+            if(current->next == NULL) {
+                current->next = q;
+                break;
+            }
+            current = current->next;
+        }
+    }
 }
 
 void stack_to_linked(STACKPTR stack, LINKEDPTR list) {

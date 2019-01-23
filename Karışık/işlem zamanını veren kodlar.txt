@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <time.h>
+#include <conio.h>
+int main ()
+{
+  time_t start,end;
+  time (&start);
+  printf ("Bir tuþa basýnýz");
+  getch();
+  time (&end);
+  printf ("Tuþa basmanýz %.2lfsaniye sürdü.n", difftime (end,start));
+  return 0;
+}

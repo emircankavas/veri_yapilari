@@ -1,0 +1,248 @@
+
+  
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+
+
+void trans();
+
+struct stack {
+	int top;
+	int ary[MAX];
+};
+
+struct stack mystack;
+
+void push(struct stack * p, int x) {
+	if (p->top > MAX-1 ) {
+		printf("the stack is full\n");
+		return;
+	}
+	(p->top)++;
+	p->ary[mystack.top] = x;  // burda ikisi dogru mu? pointer kullanmayip normal struct. kullanmak?
+	return;
+
+}
+
+int pop() {
+	if (mystack.top == -1) {
+		printf("stack is empty, no element to pop\n");
+		return;
+	}
+	int x = 0;
+	x  = mystack.ary[mystack.top];
+	
+	printf("element %d has been popped\n", x);
+	mystack.ary[mystack.top] = 0;
+	mystack.top--;
+	return x;
+
+}
+
+void displays() {
+	if (mystack.top == -1) {
+		printf("stack is empty\n");
+		return;
+	}
+	while (mystack.top--) {
+		printf("%d\n", mystack.ary[mystack.top]);
+
+	}
+
+
+}
+
+struct node {
+	int data;
+	struct node * next;
+};
+
+struct node * head = NULL;  
+struct node * last = NULL;  
+
+void displayList();
+void insertNode(int);
+void deleteNode(int);
+void searchNode(int);
+int isEmpty();
+
+
+int main ()
+{   int selection;
+    while (1)
+    {
+		printf("1    --insert         \n");
+		printf("2    --remove         \n");
+		printf("3    --display        \n");
+		printf("4    --search        \n");
+		printf("6    --add stack         \n");
+		printf("7    --display stack       \n");
+		printf("8    --pop        \n");
+		printf("5    --EXIT           \n");
+
+        int x,flag;
+        printf ("enter the nuber\n" );
+        scanf    ("%d", &selection);
+        switch (selection){
+		case 1:
+                printf("Eklemek istediginiz sayiyi giriniz");
+                scanf("%d", &x);
+                insertNode(x);
+                break;
+		case 2:
+                flag=isEmpty();
+                if(flag!=1){ //listede eleman varsa
+                printf("Silmek istediginiz elemani giriniz\n");
+                scanf("%d", &x);
+                deleteNode(x);}
+                break;
+		case 3:
+                displayList();
+     
+				break;
+		case 4:
+                flag=isEmpty();
+                if(flag!=1){ //listede eleman varsa
+                    printf("Aramak istediginiz sayiyi giriniz\n");
+                    scanf("%d", &x);
+                    searchNode(x);}
+                break;
+		case 5:
+                return 0;
+		case 6:
+			printf("Eklemek istediginiz sayiyi giriniz");
+			scanf("%d", &x);
+			push(&mystack,x);
+			break;
+		case 7:
+			displays();
+			break;
+		case 8 :
+			x = pop();
+			break;
+		case 9:
+			trans();
+			break;
+        }
+}
+    return 0;
+}
+
+
+void displayList() {
+	struct node * ptr = head;
+
+	if (isEmpty() == 1)//listede eleman yok
+		return;
+
+
+	else {
+		while (ptr != NULL) {
+			printf("%d", ptr->data);
+			ptr = ptr->next;
+		}
+		printf("\n");
+
+	}
+}
+
+void insertNode(int data) {
+    struct node * ptr = (struct node *) malloc(sizeof(struct node));
+    if (ptr == NULL) {
+        printf("Bellekte yeterli alan yok !\n");
+        return;
+    }
+    ptr->data = data;
+    ptr->next=NULL;
+    
+    if(head==NULL) //ilk node
+        head=last=ptr;
+    else{
+        last->next=ptr;
+        last=ptr;
+    }
+}
+
+void trans() {
+	struct node * pp;
+	pp = head;
+	while (pp != NULL) {
+		
+		push(&mystack, pp->data);
+		pp = pp->next;
+	}
+	
+}
+
+void deleteNode(int x) {
+    if(head==NULL)
+    {printf("Listede hic eleman yok !\n");
+        return;}
+    else{
+        struct node * p;
+        struct node * previous = head;
+        for(p=head;p!=NULL;p=p->next) //listeyi geziyoruz
+        {   if(p->data==x) //eleman bulundu
+            {
+                
+              //  case1ilk eleman silinmek isteniyor
+                if(p==head)
+                {   head=head->next;
+                    free(p);
+                    printf("%d basariyla listeden silindin\n",x);
+                    return;
+                }
+               //case2son eleman silinmek isteniyor
+                if(p==last){
+                    previous->next=p->next; //p-next=NULL zaten
+                    last=previous;
+                    free(p);
+                    printf("%d basariyla listeden silindin\n",x);
+                    return;
+                }
+                //case3aradan eleman silinmek isteniyor
+                previous->next=p->next;
+                free(p);
+                printf("%d basariyla listeden silindin",x);
+                return;                
+            }
+            previous=p;
+        }
+        
+        
+        printf("Aranan eleman listede bulunamadin\n");
+        return;
+    }
+}
+
+void searchNode(int x) {
+    int counter=0;
+    struct node * ptr = head;
+    
+    if(isEmpty()==1)//listede eleman yok
+        return;
+    
+    counter=1;
+    while(ptr->data != x) {
+        if(ptr->next == NULL) {// son node a geldi hala bulamadi
+           printf("Listede aranan eleman yok\n");
+            return;}
+        else {
+            ptr = ptr->next;
+            counter=counter+1;
+        }
+    }
+    printf("Aranan eleman listede %d\n",counter);
+}
+
+int isEmpty(){
+    if(head==NULL){
+        printf("Listede hic eleman yok !\n");
+        return 1;}
+    else
+        return 0;
+}
+
+
+

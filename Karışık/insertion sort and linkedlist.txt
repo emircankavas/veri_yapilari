@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+ int data;
+
+ struct node *next;
+};
+typedef struct node Node ;
+
+Node* head = NULL;
+int main(){
+
+
+int diz[3][3]={{5,2,6},{2,4,8},{6,9,1}};
+
+aktar1(2,3,3,diz);
+
+display(head);
+
+}
+
+void aktar1(int istenensatir,int satir,int sutun,int dizi[satir][sutun]){
+
+    int i,j,k;
+	for ( i = 1; i < sutun; i++){
+		for ( j = i; j > 0; j--){
+			if (dizi[istenensatir][j] < dizi[istenensatir][j - 1]){
+				int temp = dizi[istenensatir][j];
+				dizi[istenensatir][j] = dizi[istenensatir][j - 1];
+				dizi[istenensatir][j - 1] = temp;
+			}
+			else break;
+		}
+	}
+	for ( k = 0; k < sutun; k++){
+		printf("%d ", dizi[istenensatir][k]);
+	}
+//linked liste ekleme kismi
+   struct node *temp,*newnode;
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->data=dizi[istenensatir][0];
+    temp->next=NULL;
+    head=temp;
+
+      if(head == NULL){
+      printf("this fonction cannot be used to add a note to an empty list \n");
+
+    }
+    for(i=1;i<sutun;i++){
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->next = NULL;
+    temp->data = dizi[istenensatir][i];
+    newnode=head;
+
+        while(newnode->next!=NULL){
+            newnode=newnode->next;
+        }
+
+        newnode->next=temp;
+    }
+
+
+}
+void display(struct node *head){
+        struct node *p;
+        int counter=1;
+    if(head==NULL){
+        printf("\n\t the list is empty \n");
+        return;
+    }
+       p=head;
+
+        while(p!=NULL){
+            printf("\n%d.element is %d\n",counter,p->data);
+            counter++;
+            p = p->next;
+
+        }
+
+
+    }

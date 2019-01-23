@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <time.h>
+
+#define STACKSIZE 16
+#define SATIR 4
+#define SUTUN 4
+int dizi[STACKSIZE];
+int matris[SATIR][SUTUN];
+
+void yerdegis(int x, int y){
+	int temp;
+	temp = dizi[x];
+	dizi[x] = dizi[y];
+	dizi[y] = temp;
+}
+
+
+void matristodizi(int matris[SATIR][SUTUN], int dizi[STACKSIZE]){
+	int dsayac = 0;
+	for (int i = 0; i < SATIR; i++)
+	for (int j = 0; j < SUTUN; j++){
+		dizi[dsayac] = matris[i][j];
+		dsayac++;
+	}
+}
+void sýrala(int dizi[STACKSIZE]){
+	for (int i = 0; i < STACKSIZE;i++)
+	for (int j = i; i>=0; j--){
+		if (dizi[j]<dizi[j - 1]){
+			yerdegis(j, j - 1);
+		}
+		else break;
+	}
+
+
+}
+void dizitomatris(int dizi[STACKSIZE], int matris[SATIR][SUTUN]){
+	int dsayac = 0;
+	for (int i = 0; i < SATIR; i++)
+	for (int j = 0; j < SUTUN; j++){
+		matris[i][j] = dizi[dsayac];
+		dsayac++;
+	}
+
+}
+void matrisyazdýr(int matris[SATIR][SUTUN]){
+    for (int i = 0; i < SATIR; i++){
+	for (int j = 0; j < SUTUN; j++){
+	printf("%d", matris[i][j]);
+	printf(" ");
+}
+		printf("\n");
+	}
+}
+void matrisolustur(int matris[SATIR][SUTUN]){
+srand(time(NULL));
+for (int i = 0; i < SATIR;i++)
+for (int j = 0; j < SUTUN; j++){
+
+	matris[i][j] = rand()%100;
+}
+}
+
+int main(){	
+
+
+matrisolustur(matris);
+matristodizi(matris, dizi);
+sýrala(dizi);
+dizitomatris(dizi, matris);
+matrisyazdýr(matris);
+system("PAUSE");
+
+}
+

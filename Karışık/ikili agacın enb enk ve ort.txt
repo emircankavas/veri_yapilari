@@ -1,0 +1,27 @@
+// IKILI AGACIN EN BUYUK VE EN KUCUK ELEMANLARINI BULUP, BUTUN ELEMANLARIN ORTALAMASINI ALAN C PROGRAMI
+
+void enkucuk(node*p){
+	while (p != NULL){
+		p = p->left;
+	}
+	prinf("En kucuk: %d \n", p->data);
+}
+
+void enbuyuk(node*p){
+	while (p != NULL){
+		p = p->right;
+	}
+	prinf("En buyuk: %d \n", p->data);
+}
+
+int sayac = 0, sonuc = 0;
+
+void ortalama(node*p){
+	if (p != NULL){
+		sonuc += p->data;
+		sayac++;
+		ortalama(p->left);
+		ortalama(p->right);
+	}
+	printf("Ortalama: %d \n", sonuc/i);
+}

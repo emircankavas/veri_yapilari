@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <math.h>
+#include<string.h>
+#define N 5
+#define true 1
+#define false 0
+
+void printpath(int from, int to);
+void print_elements();
+
+int graph[N][N];
+int path[N];
+int visited[N];
+int indeks = 0;
+
+void main()
+{
+	
+	int from, to;	
+	
+	printf(" dugum sayisini=  %d dir.. \n",N);
+
+	for (int i = 0; i < N; i++)
+	{
+		printf("\t");
+		for (int j = 0; j < N; j++) {
+			graph[i][j] = rand() % 2;
+			printf("%d", graph[i][j]);
+		}
+		printf("\n");
+
+	}
+	//kullanýcýdan düðüm bilgisinin alýnmasý from--> to
+	printf("hangi dugumden [0,%d]: ", N - 1);
+	scanf("%d", &from);
+
+	printf("hangi dugume[0,%d]: ", N - 1);
+	scanf("%d", &to);
+
+	
+	printpath(from, to);
+
+	system("PAUSE");
+
+}
+void printpath(int from, int to)
+{
+	visited[from] = true;
+	path[indeks] = from;
+	indeks++;
+	
+	if (from == to)
+	{
+		print_elements();
+	}
+	else
+	{
+		int i;
+		for (i = 0; i < N; i++)
+		{
+			if (visited[i] == false && graph[from][i]==true)
+				printpath(i, to);
+		}
+	}
+
+	visited[from] = false;
+	indeks--; // düðümler arasýnda baðlantý bulunmadýðý için deðeri azaltýlýr.
+
+}
+void print_elements()
+{
+	int i;
+	for (i = 0; i < indeks; i++)
+	{ 
+		printf("%d ", path[i]);
+
+	}
+
+
+	printf("\n");
+}
